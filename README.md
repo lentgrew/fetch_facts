@@ -100,7 +100,7 @@ This repository was builded using the following technologies:
 * Java SDK 23
 * Gradle 8.11.1
 
-Having the JDK 21, Docker, Docker Compose are mandatory to be able to build and run the App.
+Having the JDK 23, Docker, Docker Compose are mandatory to be able to build and run the App.
 
 ### Build
 

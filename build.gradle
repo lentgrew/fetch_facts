@@ -1,13 +1,18 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
     id 'java'
+    id 'io.quarkus' version '3.17.2'
+
     id 'org.jetbrains.kotlin.jvm' version '2.1.0'
-    id 'org.jetbrains.kotlin.plugin.spring' version '2.1.0'
-    id 'org.jetbrains.kotlin.plugin.jpa' version '2.1.0'
+    id 'org.jetbrains.kotlin.plugin.allopen' version '2.1.0'
 }
 
-group = 'org.db.fetch_facts'
+ext {
+    quarkusPlatformGroupId = 'io.quarkus'
+    quarkusPlatformArtifactId = 'quarkus-bom'
+    quarkusPlatformVersion = '3.17.2'
+}
+
+group = 'com.db.facts'
 version = '1.0.0'
 
 configurations {
@@ -23,12 +28,14 @@ repositories {
 }
 
 dependencies {
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.0.21'
 
-    testImplementation(
-            'org.mockito.kotlin:mockito-kotlin:5.0.0'
-    )
-}
+    implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
 
-tasks.named('test') {
-    useJUnitPlatform()
+    implementation 'io.quarkus:quarkus-rest'
+    implementation 'io.quarkus:quarkus-rest-jackson'
+    implementation 'io.quarkus:quarkus-kotlin'
+
+    testImplementation 'io.quarkus:quarkus-junit5'
+    testImplementation 'io.rest-assured:rest-assured'
 }
