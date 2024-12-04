@@ -24,12 +24,15 @@ class FactServiceImpl(
     private val language: String = "en"
 
     override fun fetchAndShortenFact(): Uni<ShortenedFact> {
-        log.info("GetRandomFact for language: $language")
+        log.info("Fetch random fact for language: $language")
         return factsClient.getRandomFact(language)
-                .log()
-                .map {
-                    shortenUrl(it)
-                    ShortenedFact(it.text, it.shortenedUrl!!)
+                .onFailure().invoke { throwable ->
+                    log.error("Error occurred while fetching fact: $throwable")
+                }
+                .onFailure().retry().atMost(3)
+                .onItem().transform { fact ->
+                    shortenUrl(fact)
+                    ShortenedFact(fact.text, fact.shortenedUrl!!)
                 }
     }
 

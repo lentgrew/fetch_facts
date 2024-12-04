@@ -1,7 +1,6 @@
 package com.db.fetchfacts.controller
 
 import com.db.fetchfacts.dto.CachedFact
-import com.db.fetchfacts.dto.ShortenedFact
 import com.db.fetchfacts.service.interfaces.FactService
 import io.smallrye.mutiny.Uni
 import jakarta.ws.rs.GET
@@ -15,8 +14,16 @@ class FactController(
         private val factService: FactService
 ) {
     @POST
-    fun fetchAndShortenFact(): Uni<ShortenedFact> {
+    fun fetchAndShortenFact(): Uni<Response> {
         return factService.fetchAndShortenFact()
+                .onItem().transform { fact ->
+                    Response.ok(fact).build()
+                }
+                .onFailure().recoverWithItem { throwable ->
+                    Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                            .entity("Failed to fetch fact: ${throwable.message}")
+                            .build()
+                }
     }
 
     @GET
