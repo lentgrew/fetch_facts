@@ -3,7 +3,7 @@
 ### Deutsche Bank Coding Challenge
 ### Overview
 Your task is to create a backend service in Kotlin or Java that fetches random facts from the Useless Facts API, provides a shortened URL for each fact, caches them, and offers a private area to consult access statistics.
-New update: please not use spring tho as framework (either quarkus or ktor) 😢.
+New update: please not use spring tho as framework (either quarkus or ktor).
 The service should be built with a focus on clean and maintainable architecture.
 
 #### Requirements

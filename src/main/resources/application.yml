@@ -1,0 +1,4 @@
+quarkus:
+  rest-client:
+    facts-api:
+      url: https://uselessfacts.jsph.pl/api/v2/facts/random
