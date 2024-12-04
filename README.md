@@ -97,10 +97,10 @@ The service should be built with a focus on clean and maintainable architecture.
 
 This repository was builded using the following technologies:
 
-* Java SDK 23
-* Gradle 8.11.1
+* Java SDK 21/23
+* Gradle 8.10.2
 
-Having the JDK 23, Docker, Docker Compose are mandatory to be able to build and run the App.
+Having the JDK 21/23, Docker, Docker Compose are mandatory to be able to build and run the App.
 
 ### Build
 
@@ -112,10 +112,12 @@ Having the JDK 23, Docker, Docker Compose are mandatory to be able to build and 
 ### Running
 
 First:
-* The JAR file will be located in the `./build/libs` folder. There will be two `.jar` files:
-    * `fetch_facts-1.0.0.jar` stand alone `jar` with all dependencies included.
-    * `fetch_facts-1.0.0-plain.jar` skim `jar` without dependencies, used as external dependency.
-* To run the JAR, use the following command in a console `java -jar .\fetch_facts-1.0.0.jar`.
+* `./gradlew quarkusDev`
+
+Second:
+* `./gradlew build`
+* The JAR file will be located in the `./build` folder.
+* To run the JAR, use the following command in a console `java -jar build/quarkus-app/quarkus-run.jar`.
 
 Alternative:
 * Navigate to the root directory of the project
@@ -131,6 +133,7 @@ Alternative:
 
 * The app will deploy by default in the `port:8080` so please make sure to have it free or change it
   before compilation inside the `application.yml` config file.
-* The app has `SwaggerUI` configured for testing you can access the swagger in the
-  route: http://localhost:8080/swagger-ui/index.html
+* OpenAPI Specification: http://localhost:8080/q/openapi?format=json
     * be aware of the port in case you change it in the steps above.
+* Secured private endpoints by enabling role-based access control. Implemented embedded user accounts with Basic Authentication for access.
+  *  For testing purposes only, use the following credentials: admin:admin
