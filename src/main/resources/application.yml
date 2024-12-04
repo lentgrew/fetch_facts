@@ -1,4 +1,14 @@
 quarkus:
+  http.auth.basic: true
+  security:
+    users:
+      embedded:
+        enabled: true
+        plain-text: true
+        users:
+          admin: admin
+        roles:
+          admin: admin
   rest-client:
     facts-api:
       url: https://uselessfacts.jsph.pl/api/v2/facts/random

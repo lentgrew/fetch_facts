@@ -35,6 +35,10 @@ dependencies {
     implementation 'io.quarkus:quarkus-kotlin'
     implementation 'io.quarkus:quarkus-rest-client-jackson'
     implementation 'io.quarkus:quarkus-config-yaml'
+    implementation 'io.quarkus:quarkus-security'
+    implementation 'io.quarkus:quarkus-elytron-security-properties-file'
+
+
     implementation 'com.fasterxml.jackson.module:jackson-module-kotlin:2.18.1'
 
     testImplementation 'io.quarkus:quarkus-junit5'
