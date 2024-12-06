@@ -20,12 +20,15 @@ class FactServiceImpl(
         private val shortenedUrlService: ShortenedUrlService,
         private val factRepository: FactRepository
 ) : FactService {
+    companion object {
+        const val LANGUAGE: String = "en"
+    }
+
     private val log: Logger = Logger.getLogger(FactServiceImpl::class.java)
-    private val language: String = "en"
 
     override fun fetchAndShortenFact(): Uni<ShortenedFact> {
-        log.info("Fetch random fact for language: $language")
-        return factsClient.getRandomFact(language)
+        log.info("Fetch random fact for language: $LANGUAGE")
+        return factsClient.getRandomFact(LANGUAGE)
                 .onFailure().invoke { throwable ->
                     log.error("Error occurred while fetching fact: $throwable")
                 }
@@ -44,6 +47,8 @@ class FactServiceImpl(
 
     override fun getAllFacts(): List<CachedFact> {
         return factRepository.getAllFacts()
+                .map { fact -> CachedFact(fact.text, fact.permalink) }
+                .toList()
     }
 
     override fun getOriginalPermalink(shortenedUrl: String): String {
@@ -53,6 +58,7 @@ class FactServiceImpl(
     override fun getStatistics(): List<StatisticResponse> {
         return factRepository.getStatistics()
     }
+
     private fun shortenUrl(fact: Fact, collisionShift: Long = 0L): Fact {
         val shortenedUrl = shortenedUrlService.shortenUrl(fact)
         if (factRepository.existKey(shortenedUrl))

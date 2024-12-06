@@ -1,6 +1,5 @@
 package com.db.fetchfacts.repository
 
-import com.db.fetchfacts.dto.CachedFact
 import com.db.fetchfacts.dto.StatisticResponse
 import com.db.fetchfacts.model.Fact
 import com.db.fetchfacts.model.Statistic
@@ -32,10 +31,8 @@ class FactRepository {
         return factsCache[shortenedUrl]!!
     }
 
-    fun getAllFacts(): List<CachedFact> {
-        return factsCache.values
-                .map { fact -> CachedFact(fact.text, fact.permalink) }
-                .toList()
+    fun getAllFacts(): List<Fact> {
+        return factsCache.values.toList()
     }
 
     fun getStatistics(): List<StatisticResponse> {

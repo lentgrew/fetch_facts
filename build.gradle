@@ -42,8 +42,11 @@ dependencies {
 
     implementation 'com.fasterxml.jackson.module:jackson-module-kotlin:2.18.1'
 
+    testImplementation 'io.quarkus:quarkus-test-security'
     testImplementation 'io.quarkus:quarkus-junit5'
+    testImplementation 'io.quarkus:quarkus-junit5-mockito'
     testImplementation 'io.rest-assured:rest-assured'
+    testImplementation 'io.mockk:mockk:1.13.13'
 }
 
 allOpen {
