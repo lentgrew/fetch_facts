@@ -16,9 +16,9 @@ import org.jboss.logging.Logger
 
 @ApplicationScoped
 class FactServiceImpl(
-        @RestClient private val factsClient: FactsClient,
-        private val shortenedUrlService: ShortenedUrlService,
-        private val factRepository: FactRepository
+    @RestClient private val factsClient: FactsClient,
+    private val shortenedUrlService: ShortenedUrlService,
+    private val factRepository: FactRepository
 ) : FactService {
     companion object {
         const val LANGUAGE: String = "en"
@@ -29,14 +29,14 @@ class FactServiceImpl(
     override fun fetchAndShortenFact(): Uni<ShortenedFact> {
         log.info("Fetch random fact for language: $LANGUAGE")
         return factsClient.getRandomFact(LANGUAGE)
-                .onFailure().invoke { throwable ->
-                    log.error("Error occurred while fetching fact: $throwable")
-                }
-                .onFailure().retry().atMost(3)
-                .onItem().transform { fact ->
-                    shortenUrl(fact)
-                    ShortenedFact(fact.text, fact.shortenedUrl!!)
-                }
+            .onFailure().invoke { throwable ->
+                log.error("Error occurred while fetching fact: $throwable")
+            }
+            .onFailure().retry().atMost(3)
+            .onItem().transform { fact ->
+                shortenUrl(fact)
+                ShortenedFact(fact.text, fact.shortenedUrl!!)
+            }
     }
 
     override fun getFactByShortenedUrl(shortenedUrl: String): CachedFact {
@@ -47,8 +47,8 @@ class FactServiceImpl(
 
     override fun getAllFacts(): List<CachedFact> {
         return factRepository.getAllFacts()
-                .map { fact -> CachedFact(fact.text, fact.permalink) }
-                .toList()
+            .map { fact -> CachedFact(fact.text, fact.permalink) }
+            .toList()
     }
 
     override fun getOriginalPermalink(shortenedUrl: String): String {

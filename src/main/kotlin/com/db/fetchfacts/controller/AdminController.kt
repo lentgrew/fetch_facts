@@ -8,11 +8,11 @@ import jakarta.ws.rs.Path
 
 @Path("/admin/statistics")
 class AdminController(
-        private val factService: FactService
+    private val factService: FactService
 ) {
     @GET
     @RolesAllowed("admin")
-    fun getAccessStatistics():  List<StatisticResponse> {
+    fun getAccessStatistics(): List<StatisticResponse> {
         return factService.getStatistics()
     }
 }

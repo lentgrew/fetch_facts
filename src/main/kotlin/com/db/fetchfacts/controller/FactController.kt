@@ -11,19 +11,19 @@ import jakarta.ws.rs.core.Response
 
 @Path("/facts")
 class FactController(
-        private val factService: FactService
+    private val factService: FactService
 ) {
     @POST
     fun fetchAndShortenFact(): Uni<Response> {
         return factService.fetchAndShortenFact()
-                .onItem().transform { fact ->
-                    Response.ok(fact).build()
-                }
-                .onFailure().recoverWithItem { throwable ->
-                    Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                            .entity("Failed to fetch fact: ${throwable.message}")
-                            .build()
-                }
+            .onItem().transform { fact ->
+                Response.ok(fact).build()
+            }
+            .onFailure().recoverWithItem { throwable ->
+                Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("Failed to fetch fact: ${throwable.message}")
+                    .build()
+            }
     }
 
     @GET
