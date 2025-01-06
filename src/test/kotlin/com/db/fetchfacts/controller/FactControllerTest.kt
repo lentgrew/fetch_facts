@@ -31,8 +31,8 @@ class FactControllerTest {
                 .then()
                 .log().all()
                 .statusCode(Response.Status.OK.statusCode)
-                .body("originalFact", Matchers.equalTo("fact"))
-                .body("shortenedUrl", Matchers.equalTo("url"))
+                .body("original_fact", Matchers.equalTo("fact"))
+                .body("shortened_url", Matchers.equalTo("url"))
     }
 
     @Test
@@ -57,7 +57,7 @@ class FactControllerTest {
                 .then()
                 .statusCode(Response.Status.OK.statusCode)
                 .body("fact", Matchers.equalTo("fact"))
-                .body("originalPermalink", Matchers.equalTo("link"))
+                .body("original_permalink", Matchers.equalTo("link"))
     }
 
     @Test
@@ -74,9 +74,9 @@ class FactControllerTest {
                 .statusCode(Response.Status.OK.statusCode)
                 .body("$.size()", Matchers.equalTo(2))
                 .body("[0].fact", Matchers.equalTo("fact1"))
-                .body("[0].originalPermalink", Matchers.equalTo("link1"))
+                .body("[0].original_permalink", Matchers.equalTo("link1"))
                 .body("[1].fact", Matchers.equalTo("fact2"))
-                .body("[1].originalPermalink", Matchers.equalTo("link2"))
+                .body("[1].original_permalink", Matchers.equalTo("link2"))
     }
 
     @Test

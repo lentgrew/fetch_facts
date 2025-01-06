@@ -33,10 +33,10 @@ class AdminControllerTest {
                 .then()
                 .statusCode(Response.Status.OK.statusCode)
                 .body("$.size()", Matchers.equalTo(2))
-                .body("[0].shortenedUrl", Matchers.equalTo("url1"))
-                .body("[0].accessCount", Matchers.equalTo(10))
-                .body("[1].shortenedUrl", Matchers.equalTo("url2"))
-                .body("[1].accessCount", Matchers.equalTo(20))
+                .body("[0].shortened_url", Matchers.equalTo("url1"))
+                .body("[0].access_count", Matchers.equalTo(10))
+                .body("[1].shortened_url", Matchers.equalTo("url2"))
+                .body("[1].access_count", Matchers.equalTo(20))
     }
 
     @Test
